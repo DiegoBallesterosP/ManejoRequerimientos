@@ -1,0 +1,14 @@
+<router-outlet></router-outlet>
+<app-menu-lateral [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()"
+  (changeIsLeftSidebarCollapsed)="changeIsLeftSidebarCollapsed($event)" />
+<app-main [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()" [screenWidth]="screenWidth()" />
+
+<div class="page-content" [ngClass]="sizeClass()">
+  <h2>Crear requerimiento</h2>
+  <div class="content">
+    <!-- Aquí va el contenido de la página -->
+    <div>Formulario de creación de requerimiento</div>
+    <div>Campos del formulario</div>
+    <div>Botones de acción</div>
+  </div>
+</div>

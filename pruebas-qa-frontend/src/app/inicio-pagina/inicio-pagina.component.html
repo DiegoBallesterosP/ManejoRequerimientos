@@ -1,0 +1,17 @@
+<router-outlet></router-outlet>
+<app-menu-lateral [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()"
+  (changeIsLeftSidebarCollapsed)="changeIsLeftSidebarCollapsed($event)" />
+<app-main [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()" [screenWidth]="screenWidth()" />
+
+<div class="page-content" [ngClass]="sizeClass()">
+  <h2>Inicio de pagina</h2>
+  <div class="content">
+    <!-- Aquí va el contenido de la página -->
+    <div>Tareas</div>
+    <div>Musica Stream</div>
+    <div>Dropi</div>
+    <div>Redes</div>
+    <div>Peliculas</div>
+    <div>Duolingo-La mejor...</div>
+  </div>
+</div>
