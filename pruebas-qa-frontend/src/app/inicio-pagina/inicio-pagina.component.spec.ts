@@ -1,5 +1,5 @@
+//src\app\inicio-pagina\inicio-pagina.component.spec.ts
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { InicioPaginaComponent } from './inicio-pagina.component';
 
 describe('InicioPaginaComponent', () => {

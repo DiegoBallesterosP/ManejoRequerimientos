@@ -1,3 +1,4 @@
+//src\app\inicio-pagina\inicio-pagina.component.ts
 import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common'; // Importa CommonModule

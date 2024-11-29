@@ -1,3 +1,4 @@
+//src\app\menu-lateral\menu-lateral.component.ts
 import { Component, Input, Output, EventEmitter, HostListener, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -17,17 +18,22 @@ export class MenuLateralComponent implements OnInit {
 
   items = [
     {
-      routeLink: 'inicio-pagina',
+      routeLink: '/inicio-pagina',
       icon: 'fal fa-home',
       label: 'Inicio'
     },
     {
-      routeLink: 'crear-requerimiento',
+      routeLink: '/crear-requerimiento',
       icon: 'fal fa-box-open',
       label: 'Crear Requerimiento'
     },
   ];
+  
+  logRoute(route: string): void {
+    console.log('Navegando a:', route);
+  }
 
+  
   ngOnInit(): void {
     if (typeof window !== 'undefined') {
       this.screenWidth.set(window.innerWidth);

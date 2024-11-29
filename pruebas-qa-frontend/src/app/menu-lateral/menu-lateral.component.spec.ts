@@ -1,3 +1,4 @@
+//src\app\menu-lateral\menu-lateral.component.spec.ts
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MenuLateralComponent } from './menu-lateral.component';
 

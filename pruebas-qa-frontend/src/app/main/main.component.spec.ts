@@ -1,5 +1,5 @@
+//src\app\main\main.component.spec.ts
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MainComponent } from './main.component';
 
 describe('MainComponent', () => {

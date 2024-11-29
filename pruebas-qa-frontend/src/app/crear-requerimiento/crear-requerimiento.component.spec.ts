@@ -1,5 +1,5 @@
+//src\app\crear-requerimiento\crear-requerimiento.component.spec.ts
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CrearRequerimientoComponent } from './crear-requerimiento.component';
 
 describe('CrearRequerimientoComponent', () => {
