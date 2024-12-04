@@ -1,30 +1,24 @@
 //src\app\crear-requerimiento\crear-requerimiento.component.ts
-import { Component, signal, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
 import { MainComponent } from '../main/main.component';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
+import { NgbPaginationModule, NgbTypeaheadModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-crear-requerimiento',
   standalone: true,
-  imports: [RouterModule, MenuLateralComponent, MainComponent, CommonModule, MatTableModule, MatPaginatorModule],
+  imports: [RouterModule, MenuLateralComponent, MainComponent, CommonModule, FormsModule, NgbTypeaheadModule, NgbPaginationModule],
   templateUrl: './crear-requerimiento.component.html',
   styleUrls: ['./crear-requerimiento.component.scss']
 })
-export class CrearRequerimientoComponent implements AfterViewInit {
-  /* Configuración Tabla */
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator; // Usar el operador de aserción de no nulo
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-/* Configuración Menu Lateral */
+export class CrearRequerimientoComponent {
+  /* Configuración Menu Lateral */
   isLeftSidebarCollapsed = signal<boolean>(false);
   screenWidth = signal<number>(typeof window !== 'undefined' ? window.innerWidth : 0);
 
@@ -42,41 +36,61 @@ export class CrearRequerimientoComponent implements AfterViewInit {
     }
   }
 
-  constructor() {
+  constructor(private modalService: NgbModal) {
     if (typeof window !== 'undefined') {
       window.addEventListener('resize', () => {
         this.screenWidth.set(window.innerWidth);
       });
     }
+
+    this.refreshCountries();
+  }
+
+  /* Configuración Tabla*/
+  page = 1;
+  pageSize = 4;
+  collectionSize = COUNTRIES.length;
+  countries: Country[] = []; // Initialize the countries property
+
+  refreshCountries() {
+    this.countries = COUNTRIES.map((country, i) => ({ id: i + 1, ...country })).slice(
+      (this.page - 1) * this.pageSize,
+      (this.page - 1) * this.pageSize + this.pageSize,
+    );
+  }
+ 
+
+  openModal(content: any) {
+    this.modalService.open(content, { size: 'fullscreen' }); // Tamaño extra grande
   }
 }
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+interface Country {
+  id?: number;
+  nameReq: string;
+  state: string;
+  modified: string;
+  creationDate: Date;
+  dateCompleted: Date;
+  created: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
+const COUNTRIES: Country[] = [
+  {
+    nameReq: 'creacion modulo',
+    state: 'Sin asignar',
+    modified: '',
+    creationDate: new Date(),
+    dateCompleted: new Date(),
+    created: 'alex'
+  },
+  {
+    nameReq: 'cliente escritorio',
+    state: 'En Desarrollo',
+    modified: '',
+    creationDate: new Date(),
+    dateCompleted: new Date(),
+    created: 'Pepe'
+  }
 ];
+
